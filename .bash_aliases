@@ -2,7 +2,7 @@ create_gnome_launcher() {
         sudo gnome-desktop-item-edit /usr/share/applications/$1.desktop --create-new 
 }
 hg_cool_status() {
-        hg log -l15 --template "{rev}:{date|isodate}|{branch}|{author}|{desc}\n{file_adds % '\t+ {file}\n'}{file_dels % '\t- {file}\n'}{file_mods % '\tM {file}\n'}  \n" | less
+        hg log --template "{rev}:{date|isodate}|{branch}|{author}|{desc}\n{file_adds % '\t+ {file}\n'}{file_dels % '\t- {file}\n'}{file_mods % '\tM {file}\n'}  \n" $1
 }
 
 # User specific aliases and functions
