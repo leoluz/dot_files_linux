@@ -4,6 +4,9 @@ create_gnome_launcher() {
 hg_cool_status() {
         hg log --template "{rev}:{date|isodate}|{branch}|{author}|{desc}\n{file_adds % '\t+ {file}\n'}{file_dels % '\t- {file}\n'}{file_mods % '\tM {file}\n'}  \n" $1
 }
+intellij() {
+        nohup /bin/sh /opt/intellij/bin/idea.sh &
+}
 
 # User specific aliases and functions
 alias idea="/home/leoluz/dev/ide/intellij/bin/idea.sh"
