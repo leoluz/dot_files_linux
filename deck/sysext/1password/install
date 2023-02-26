@@ -1,0 +1,45 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+target_dir="$HOME/.config/1password-sysext"
+
+install_policy() {
+  policy_dir="$target_dir/usr/share/polkit-1/actions"
+  mkdir -p $policy_dir
+
+  # Fill in policy kit file with a list of (the first 10) human users of the system.
+  export POLICY_OWNERS
+  POLICY_OWNERS="$(cut -d: -f1,3 /etc/passwd | grep -E ':[0-9]{4}$' | cut -d: -f1 | head -n 10 | sed 's/^/unix-user:/' | tr '\n' ' ')"
+  eval "cat <<EOF
+$(cat ./com.1password.1Password.policy.tpl)
+EOF" > $policy_dir/com.1password.1Password.policy
+}
+
+install_release() {
+  version_id="$(grep -E '^VERSION_ID=' /etc/os-release | cut -d= -f2)"
+  release_dir=$target_dir/usr/lib/extension-release.d
+  mkdir -p $release_dir
+  echo "ID=steamos" | sudo tee $release_dir/extension-release.1password
+  echo "VERSION_ID=$version_id" | sudo tee -a $release_dir/extension-release.1password
+}
+
+register_sysext() {
+  mksquashfs $target_dir $raw_path
+  sudo chown -R root:root $target_dir
+  sudo mv $raw_path /var/lib/extensions/
+  #ln -s $raw_path /var/lib/extensions/1password.raw
+  sudo systemctl enable systemd-sysext
+  sudo systemctl start systemd-sysext
+  sudo systemd-sysext refresh
+  sudo systemd-sysext status
+}
+
+install_extension() {
+  mkdir -p $target_dir
+  raw_path="$target_dir/1password.raw"
+  install_policy
+  install_release
+  register_sysext
+}
+
+install_extension
