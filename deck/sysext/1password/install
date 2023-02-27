@@ -1,7 +1,10 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
-target_dir="$HOME/.config/1password-sysext"
+abort() {
+  printf "%s\n" "$@"
+  exit 1
+}
 
 install_policy() {
   policy_dir="$target_dir/usr/share/polkit-1/actions"
@@ -11,8 +14,18 @@ install_policy() {
   export POLICY_OWNERS
   POLICY_OWNERS="$(cut -d: -f1,3 /etc/passwd | grep -E ':[0-9]{4}$' | cut -d: -f1 | head -n 10 | sed 's/^/unix-user:/' | tr '\n' ' ')"
   eval "cat <<EOF
-$(cat ./com.1password.1Password.policy.tpl)
+$(cat $script_dir/com.1password.1Password.policy.tpl)
 EOF" > $policy_dir/com.1password.1Password.policy
+}
+
+install_desktop() {
+  export OP_PATH
+  OP_PATH="$(which 1password)"
+  desktop_dir=$target_dir/usr/share/applications
+  mkdir -p $desktop_dir
+  eval "cat <<EOF
+$(cat $script_dir/1password.desktop.tpl)
+EOF" > $desktop_dir/1password.desktop
 }
 
 install_release() {
@@ -21,6 +34,16 @@ install_release() {
   mkdir -p $release_dir
   echo "ID=steamos" | sudo tee $release_dir/extension-release.1password
   echo "VERSION_ID=$version_id" | sudo tee -a $release_dir/extension-release.1password
+}
+
+current_script_dir() {
+    SOURCE=${BASH_SOURCE[0]}
+    while [ -L "$SOURCE" ]; do # resolve $SOURCE until the file is no longer a symlink
+      DIR=$( cd -P "$( dirname "$SOURCE" )" >/dev/null 2>&1 && pwd )
+      SOURCE=$(readlink "$SOURCE")
+      [[ $SOURCE != /* ]] && SOURCE=$DIR/$SOURCE # if $SOURCE was a relative symlink, we need to resolve it relative to the path where the symlink file was located
+    done
+    echo $( cd -P "$( dirname "$SOURCE" )" >/dev/null 2>&1 && pwd )
 }
 
 register_sysext() {
@@ -37,9 +60,25 @@ register_sysext() {
 install_extension() {
   mkdir -p $target_dir
   raw_path="$target_dir/1password.raw"
+
   install_policy
+  install_desktop
   install_release
   register_sysext
 }
 
+
+verify_env() {
+  if ! command -v 1password >/dev/null; then
+    abort "Command '1password' not found: 1password must be pre-installed"
+  fi
+}
+
+########
+# script
+
+verify_env
+target_dir="$HOME/.config/1password-sysext"
+script_dir=$(current_script_dir)
+source $script_dir/uninstall
 install_extension

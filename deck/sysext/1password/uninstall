@@ -1,8 +1,12 @@
 #!/usr/bin/env bash
-set -euo pipefail
+set -euxo pipefail
 
 target_dir="$HOME/.config/1password-sysext"
 
-sudo rm -f /var/lib/extensions/1password.raw
-sudo rm -rf $target_dir
-sudo systemd-sysext refresh
+if [ -f "/var/lib/extensions/1password.raw" ]; then
+  sudo rm -f /var/lib/extensions/1password.raw
+fi
+if [ -d "$target_dir" ]; then
+  sudo rm -rf $target_dir
+  sudo systemd-sysext refresh
+fi
