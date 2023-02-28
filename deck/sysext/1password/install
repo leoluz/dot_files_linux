@@ -14,7 +14,7 @@ install_policy() {
   export POLICY_OWNERS
   POLICY_OWNERS="$(cut -d: -f1,3 /etc/passwd | grep -E ':[0-9]{4}$' | cut -d: -f1 | head -n 10 | sed 's/^/unix-user:/' | tr '\n' ' ')"
   eval "cat <<EOF
-$(cat $script_dir/com.1password.1Password.policy.tpl)
+$(cat $download_dir/com.1password.1Password.policy.tpl)
 EOF" > $policy_dir/com.1password.1Password.policy
 }
 
@@ -26,6 +26,13 @@ install_desktop() {
   eval "cat <<EOF
 $(cat $script_dir/1password.desktop.tpl)
 EOF" > $desktop_dir/1password.desktop
+}
+
+install_sign_bin() {
+  # sign_bin_dir=$target_dir/opt/1Password
+  sign_bin_dir=$target_dir/usr/bin
+  mkdir -p $sign_bin_dir
+  cp $download_dir/op-ssh-sign $sign_bin_dir
 }
 
 install_release() {
@@ -47,14 +54,31 @@ current_script_dir() {
 }
 
 register_sysext() {
-  mksquashfs $target_dir $raw_path
-  sudo chown -R root:root $target_dir
-  sudo mv $raw_path /var/lib/extensions/
-  #ln -s $raw_path /var/lib/extensions/1password.raw
+  mksquashfs $target_dir $raw_path -all-root
+  # sudo chown -R root:root $target_dir
+  # sudo mv $raw_path /var/lib/extensions/
+  sudo ln -s $raw_path /var/lib/extensions/1password.raw
   sudo systemctl enable systemd-sysext
   sudo systemctl start systemd-sysext
-  sudo systemd-sysext refresh
+  # sudo systemd-sysext refresh
+  sudo systemd-sysext merge
   sudo systemd-sysext status
+}
+
+verify_env() {
+  if ! command -v 1password >/dev/null; then
+    abort "Command '1password' not found: 1password must be pre-installed"
+  fi
+}
+
+download_1password() {
+  download_file_path=$download_dir/1password.tar.gz
+  curl -s https://downloads.1password.com/linux/tar/stable/x86_64/1password-latest.tar.gz -o $download_file_path
+  tar -xf $download_file_path -C $download_dir --wildcards "*op-ssh-sign" --wildcards "*.tpl" --strip-components 1
+}
+
+cleanup() {
+    rm -rf $download_dir
 }
 
 install_extension() {
@@ -64,21 +88,17 @@ install_extension() {
   install_policy
   install_desktop
   install_release
+  install_sign_bin
   register_sysext
-}
-
-
-verify_env() {
-  if ! command -v 1password >/dev/null; then
-    abort "Command '1password' not found: 1password must be pre-installed"
-  fi
 }
 
 ########
 # script
-
 verify_env
 target_dir="$HOME/.config/1password-sysext"
 script_dir=$(current_script_dir)
+download_dir=`mktemp -d -t op-download-XXXXXX`
+download_1password
+trap cleanup exit
 source $script_dir/uninstall
 install_extension
