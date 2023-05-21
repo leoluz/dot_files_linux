@@ -13,6 +13,12 @@ mkdir -p $kitty_cfgdir
 [ ! -L $kitty_cfgdir/theme.conf ] && ln -s $kitty_cfgdir/tokyonight-theme/extras/kitty_tokyonight_night.conf $kitty_cfgdir/theme.conf
 [ ! -L $kitty_cfgdir/session.conf ] && ln -s $script_dir/kitty/session.conf $kitty_cfgdir/session.conf
 
+# Install Nix
+# https://determinate.systems/posts/nix-on-the-steam-deck
+cp -R $script_dir/etc /etc
+sudo systemctl enable --now ensure-symlinked-units-resolve.service
+
+
 # Oh-my-zsh setup
 #ohmyzsh_cfgdir="$HOME/.oh-my-zsh"
 #[ ! -d $ohmyzsh_cfgdir ] && git clone git@github.com:ohmyzsh/ohmyzsh.git $ohmyzsh_cfgdir
@@ -24,3 +30,5 @@ mkdir -p $kitty_cfgdir
 #[ ! -f $HOME/.zshrc ] && ln -s $script_dir/zshrc $HOME/.zshrc
 #[ ! -f $HOME/.gitconfig ] && ln -s $script_dir/gitconfig $HOME/.gitconfig
 #[ ! -f $HOME/.bash_profile ] && ln -s $script_dir/bash_profile $HOME/.bash_profile
+#
+#

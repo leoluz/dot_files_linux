@@ -1,8 +1,0 @@
-1. Append the configuration line to the file /etc/modprobe.d/hid_apple.conf creating it if necessary:
-echo options hid_apple fnmode=2 | sudo tee -a /etc/modprobe.d/hid_apple.conf
-
-2. Notify the hid_apple module to reload its configuration
-sudo update-initramfs -u
-
-3. Reboot
-sudo reboot
