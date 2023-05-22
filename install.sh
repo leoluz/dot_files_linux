@@ -18,6 +18,18 @@ mkdir -p $kitty_cfgdir
 cp -R $script_dir/etc /etc
 sudo systemctl enable --now ensure-symlinked-units-resolve.service
 
+# sudo nix-env -iA nixpkgs.neovim
+# sudo nix-env -iA nixpkgs.nodejs
+# sudo nix-env -iA nixpkgs.go
+# sudo nix-env -iA nixpkgs.gcc
+# sudo nix-env -iA nixpkgs.make
+# sudo nix-env -iA nixpkgs.cmake
+# sudo nix-env -iA nixpkgs.gnumake
+# sudo nix-env -iA nixpkgs.powerline-fonts
+# sudo nix-env -iA nixpkgs.xclip
+# sudo nix-env -iA nixpkgs.openvpn
+# sudo nix-env -iA nixpkgs.networkmanager-openvpn
+
 
 # Oh-my-zsh setup
 #ohmyzsh_cfgdir="$HOME/.oh-my-zsh"
