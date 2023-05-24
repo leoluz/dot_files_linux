@@ -57,6 +57,7 @@ register_sysext() {
   mksquashfs $target_dir $raw_path -all-root
   # sudo chown -R root:root $target_dir
   # sudo mv $raw_path /var/lib/extensions/
+  sudo mkdir -p /var/lib/extensions/
   sudo ln -s $raw_path /var/lib/extensions/1password.raw
   sudo systemctl enable systemd-sysext
   sudo systemctl start systemd-sysext

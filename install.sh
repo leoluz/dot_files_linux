@@ -10,23 +10,23 @@ mkdir -p $kitty_cfgdir
 [ ! -d $kitty_cfgdir/tokyonight-theme ] && git clone --depth 1 https://github.com/folke/tokyonight.nvim.git $kitty_cfgdir/tokyonight-theme
 [ ! -d $kitty_cfgdir/kittens ] && mkdir $kitty_cfgdir/kittens && ln -s $script_dir/kitty/kittens/zoom_toggle.py $kitty_cfgdir/kittens/zoom_toggle.py
 [ ! -L $kitty_cfgdir/wallpaper.png ] && ln -s $script_dir/wallpaper/eva.png $kitty_cfgdir/wallpaper.png
-[ ! -L $kitty_cfgdir/theme.conf ] && ln -s $kitty_cfgdir/tokyonight-theme/extras/kitty_tokyonight_night.conf $kitty_cfgdir/theme.conf
+[ ! -L $kitty_cfgdir/theme.conf ] && ln -s $kitty_cfgdir/tokyonight-theme/extras/kitty/tokyonight_night.conf $kitty_cfgdir/theme.conf
 [ ! -L $kitty_cfgdir/session.conf ] && ln -s $script_dir/kitty/session.conf $kitty_cfgdir/session.conf
 
 # Install Nix
 # https://determinate.systems/posts/nix-on-the-steam-deck
-cp -R $script_dir/etc /etc
+sudo cp -R $script_dir/etc/* /etc/
 sudo systemctl enable --now ensure-symlinked-units-resolve.service
 
-# sudo nix-env -iA nixpkgs.neovim
-# sudo nix-env -iA nixpkgs.nodejs
-# sudo nix-env -iA nixpkgs.go
-# sudo nix-env -iA nixpkgs.gcc
-# sudo nix-env -iA nixpkgs.make
-# sudo nix-env -iA nixpkgs.cmake
-# sudo nix-env -iA nixpkgs.gnumake
-# sudo nix-env -iA nixpkgs.powerline-fonts
-# sudo nix-env -iA nixpkgs.xclip
+nix-env -iA nixpkgs.neovim
+nix-env -iA nixpkgs.nodejs
+nix-env -iA nixpkgs.go
+nix-env -iA nixpkgs.gcc
+nix-env -iA nixpkgs.make
+nix-env -iA nixpkgs.cmake
+nix-env -iA nixpkgs.gnumake
+nix-env -iA nixpkgs.powerline-fonts
+nix-env -iA nixpkgs.xclip
 # sudo nix-env -iA nixpkgs.openvpn
 # sudo nix-env -iA nixpkgs.networkmanager-openvpn
 
@@ -39,8 +39,8 @@ sudo systemctl enable --now ensure-symlinked-units-resolve.service
 #[ ! -f $HOME/.ad_profile ] && ln -s $script_dir/ad_profile $HOME/.ad_profile
 #[ ! -f $HOME/.dw_profile ] && ln -s $script_dir/dw_profile $HOME/.dw_profile
 #[ ! -f $HOME/.it_profile ] && ln -s $script_dir/it_profile $HOME/.it_profile
-#[ ! -f $HOME/.zshrc ] && ln -s $script_dir/zshrc $HOME/.zshrc
-#[ ! -f $HOME/.gitconfig ] && ln -s $script_dir/gitconfig $HOME/.gitconfig
+[ ! -f $HOME/.zshrc ] && ln -s $script_dir/zshrc $HOME/.zshrc
+[ ! -f $HOME/.gitconfig ] && ln -s $script_dir/gitconfig $HOME/.gitconfig
 #[ ! -f $HOME/.bash_profile ] && ln -s $script_dir/bash_profile $HOME/.bash_profile
 #
 #
