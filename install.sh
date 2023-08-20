@@ -13,24 +13,6 @@ mkdir -p $kitty_cfgdir
 [ ! -L $kitty_cfgdir/theme.conf ] && ln -s $kitty_cfgdir/tokyonight-theme/extras/kitty/tokyonight_night.conf $kitty_cfgdir/theme.conf
 [ ! -L $kitty_cfgdir/session.conf ] && ln -s $script_dir/kitty/session.conf $kitty_cfgdir/session.conf
 
-# Install Nix
-# https://determinate.systems/posts/nix-on-the-steam-deck
-sudo cp -R $script_dir/etc/* /etc/
-sudo systemctl enable --now ensure-symlinked-units-resolve.service
-
-nix-env -iA nixpkgs.neovim
-nix-env -iA nixpkgs.nodejs
-nix-env -iA nixpkgs.go
-nix-env -iA nixpkgs.gcc
-nix-env -iA nixpkgs.make
-nix-env -iA nixpkgs.cmake
-nix-env -iA nixpkgs.gnumake
-nix-env -iA nixpkgs.powerline-fonts
-nix-env -iA nixpkgs.xclip
-# sudo nix-env -iA nixpkgs.openvpn
-# sudo nix-env -iA nixpkgs.networkmanager-openvpn
-
-
 # Oh-my-zsh setup
 #ohmyzsh_cfgdir="$HOME/.oh-my-zsh"
 #[ ! -d $ohmyzsh_cfgdir ] && git clone git@github.com:ohmyzsh/ohmyzsh.git $ohmyzsh_cfgdir

@@ -1,5 +1,13 @@
 [user]
-	email = YOUR EMAIL
-	name = YOUR NAME
+	email = leoluz@users.noreply.github.com
+	name = LeoLuz
+	signingkey = ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAICEceksjHRzE8SOBtXWuUdB6XSsyDgjZ4EZO7qLG8su4
+
 [alias]
 	lg = log --color --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit --
+[gpg]
+	format = ssh
+[gpg "ssh"]
+	program = /bin/op-ssh-sign
+[commit]
+	gpgsign = true
