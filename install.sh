@@ -8,8 +8,7 @@ mkdir -p $kitty_cfgdir
 [ ! -L $kitty_cfgdir/kitty.conf ] && ln -s $script_dir/kitty.conf $kitty_cfgdir/kitty.conf
 [ ! -d $kitty_cfgdir/kitty-themes ] && git clone --depth 1 https://github.com/dexpota/kitty-themes.git $kitty_cfgdir/kitty-themes
 [ ! -d $kitty_cfgdir/kittens ] && mkdir $kitty_cfgdir/kittens && ln -s $script_dir/kitty/kittens/zoom_toggle.py $kitty_cfgdir/kittens/zoom_toggle.py
-[ ! -L $kitty_cfgdir/wallpaper.png ] && ln -s $script_dir/wallpaper/eva.png $kitty_cfgdir/wallpaper.png
-[ ! -L $kitty_cfgdir/theme.conf ] && ln -s $script_dir/kitty/catppuccin-mocha.conf $kitty_cfgdir/theme.conf
+[ ! -L $kitty_cfgdir/theme.conf ] && ln -s $script_dir/kitty/themes/one-dark.conf $kitty_cfgdir/theme.conf
 [ ! -L $kitty_cfgdir/session.conf ] && ln -s $script_dir/kitty/session.conf $kitty_cfgdir/session.conf
 
 # Oh-my-zsh setup
