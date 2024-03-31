@@ -112,6 +112,8 @@
       kate
       google-chrome
       _1password-gui
+      vrrtest
+      discord
     ];
   };
 
@@ -127,7 +129,12 @@
     zsh
     fzf
     fzf-zsh
+    go
+    python3
+    nodejs_21
+    cmake
     linuxKernel.packages.linux_zen.xpadneo
+    # xwaylandvideobridge
   ];
 
   # Some programs need SUID wrappers, can be configured further or are
