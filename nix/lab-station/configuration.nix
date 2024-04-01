@@ -118,6 +118,7 @@
       kate
       google-chrome
       _1password-gui
+      1password
       vrrtest
       discord
     ];
@@ -154,6 +155,12 @@
     enable = true;
     remotePlay.openFirewall = true; # Open ports in the firewall for Steam Remote Play
     dedicatedServer.openFirewall = true; # Open ports in the firewall for Source Dedicated Server
+  };
+
+  programs._1password.enable = true;
+  programs._1password-gui = {
+      enable = true;
+      polkitPolicyOwners = [ "leoluz" ];
   };
 
   # List services that you want to enable:
