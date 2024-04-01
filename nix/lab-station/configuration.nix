@@ -118,7 +118,7 @@
       kate
       google-chrome
       _1password-gui
-      1password
+      _1password
       vrrtest
       discord
     ];
