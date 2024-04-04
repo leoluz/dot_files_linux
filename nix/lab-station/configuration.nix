@@ -140,6 +140,8 @@
     python3
     nodejs_21
     cmake
+    unrar
+    _7zz
     linuxKernel.packages.linux_zen.xpadneo
     # xwaylandvideobridge
   ];
