@@ -121,6 +121,9 @@
       _1password
       vrrtest
       discord
+      lutris
+      protonup-qt
+      steamPackages.steamcmd
     ];
   };
 
