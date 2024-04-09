@@ -45,9 +45,6 @@
     jq # A lightweight and flexible command-line JSON processor
     yq-go # yaml processor https://github.com/mikefarah/yq
     eza # A modern replacement for ‘ls’
-    fzf # A command-line fuzzy finder
-    fzf-zsh
-
 
     # misc
     tree
@@ -98,7 +95,9 @@
   programs.zsh = {
     enable = true;
     enableCompletion = true;
-    autosuggestions.enable = true;
+    autosuggestion = {
+      enable = true;
+    };
     syntaxHighlighting.enable = true;
 
     oh-my-zsh = {
@@ -114,6 +113,49 @@
     history.size = 10000;
     history.path = "${config.xdg.dataHome}/zsh/history";
   };
+
+  programs.kitty = {
+    enable = true;
+    shellIntegration = {
+      enableZshIntegration = true;
+    };
+    font = {
+      name = "DejaVuSansM Nerd Font Mono";
+    };
+    settings = {
+      font_size = 14;
+      tab_title_template = "{index}: {title}";
+      active_tab_title_template = "{index}[{num_windows}]: {title}";
+      tab_bar_edge = "bottom";
+      allow_remote_control = "yes";
+      kitty_mod = "alt";
+      enabled_layouts = "fat, tall, grid, stack";
+      inactive_text_alpha = "0.5";
+      tab_bar_style = "powerline";
+      background_opacity = "0.95";
+      hide_window_decorations = "yes";
+      background_tint = "0.7";
+      close_on_child_death = "yes";
+      scrollback_lines = 200000;
+      mouse_hide_wait = 2;
+      visual_bell_duration = 0;
+
+      "map kitty_mod+c" = "copy_to_clipboard";
+      "map kitty_mod+v" = "paste_from_clipboard";
+      "map kitty_mod+t" = "new_tab";
+      "map kitty_mod+1" = "goto_tab 1";
+      "map kitty_mod+2" = "goto_tab 2";
+      "map kitty_mod+3" = "goto_tab 3";
+      "map kitty_mod+4" = "goto_tab 4";
+      "map kitty_mod+5" = "goto_tab 5";
+    };
+  };
+
+  programs.fzf = {
+    enable = true;
+    enableZshIntegration = true;
+  };
+
 
 
   # Let home Manager install and manage itself.

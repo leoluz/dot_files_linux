@@ -147,7 +147,6 @@
   # List packages installed in system profile. To search, run:
   # $ nix search wget
   environment.systemPackages = with pkgs; [
-    kitty
     neovim
     git
     go
@@ -179,6 +178,9 @@
 
   programs.gamemode.enable = true;
 
+  programs.zsh.enable = true;
+  users.defaultUserShell = pkgs.zsh;
+
   # Configure AppImage to be invoked directly
   # https://nixos.wiki/wiki/Appimage
   boot.binfmt.registrations.appimage = {
@@ -208,6 +210,10 @@
   # Before changing this value read the documentation for this option
   # (e.g. man configuration.nix or on https://nixos.org/nixos/options.html).
   system.stateVersion = "23.11"; # Did you read the comment?
+
+  fonts.packages = with pkgs; [
+    (nerdfonts.override { fonts = [ "FiraCode" "DroidSansMono" "DejaVuSansMono" ]; })
+  ];
 
   boot.kernelPackages = pkgs.linuxPackages_latest;
 }
