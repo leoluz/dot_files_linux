@@ -24,6 +24,20 @@
   # Enable networking
   networking.networkmanager.enable = true;
 
+  networking.firewall = {
+    enable = true;
+    # trustedInterfaces = [ "wlp11s0" ];
+    # allowedUDPPorts = [
+    #   # Palworld server
+    #   27015 27016 25575 8211
+    # ];
+    # allowedTCPPorts = [
+    #   # Palworld server
+    #   27015 27016 25575 8211
+    # ];
+};
+
+
   # Set your time zone.
   time.timeZone = "America/New_York";
 
@@ -136,15 +150,10 @@
     kitty
     neovim
     git
-    zsh
-    fzf
-    fzf-zsh
     go
     python3
     nodejs_21
     cmake
-    unrar
-    _7zz
     linuxKernel.packages.linux_zen.xpadneo
     # xwaylandvideobridge
   ];
@@ -167,6 +176,8 @@
       enable = true;
       polkitPolicyOwners = [ "leoluz" ];
   };
+
+  programs.gamemode.enable = true;
 
   # Configure AppImage to be invoked directly
   # https://nixos.wiki/wiki/Appimage
