@@ -30,7 +30,9 @@
     # here is some command line tools I use frequently
     # feel free to add your own or remove some of them
 
-    neofetch
+
+    #wayland
+    wl-clipboard
 
     # archives
     zip
@@ -45,6 +47,7 @@
     jq # A lightweight and flexible command-line JSON processor
     yq-go # yaml processor https://github.com/mikefarah/yq
     eza # A modern replacement for ‘ls’
+    fastfetch
 
     # misc
     tree
@@ -103,7 +106,8 @@
     oh-my-zsh = {
       enable = true;
       plugins = [ "git" ];
-      theme = "robbyrussell";
+      theme = "refined";
+      # theme = "kolo";
     };
   
     shellAliases = {
@@ -116,14 +120,18 @@
 
   programs.kitty = {
     enable = true;
+    theme = "One Dark";
     shellIntegration = {
       enableZshIntegration = true;
     };
-    font = {
-      name = "DejaVuSansM Nerd Font Mono";
-    };
     settings = {
       font_size = 14;
+      font_family = "DejaVuSansM Nerd Font Mono";
+      bold_font = "DejaVuSansM Nerd Font Mono Bold";
+      italic_font = "DejaVuSansM Nerd Font Mono Oblique";
+      bold_italic_font = "DejaVuSansM Nerd Font Mono Bold Oblique";
+      font_features = "FiraCode-Regular +zero +onum";
+
       tab_title_template = "{index}: {title}";
       active_tab_title_template = "{index}[{num_windows}]: {title}";
       tab_bar_edge = "bottom";
@@ -132,7 +140,8 @@
       enabled_layouts = "fat, tall, grid, stack";
       inactive_text_alpha = "0.5";
       tab_bar_style = "powerline";
-      background_opacity = "0.95";
+      # background_opacity = "0.97";
+      background_blur = 1;
       hide_window_decorations = "yes";
       background_tint = "0.7";
       close_on_child_death = "yes";
@@ -140,6 +149,7 @@
       mouse_hide_wait = 2;
       visual_bell_duration = 0;
 
+      "map kitty_mod+s" = "new_window";
       "map kitty_mod+c" = "copy_to_clipboard";
       "map kitty_mod+v" = "paste_from_clipboard";
       "map kitty_mod+t" = "new_tab";
@@ -155,8 +165,6 @@
     enable = true;
     enableZshIntegration = true;
   };
-
-
 
   # Let home Manager install and manage itself.
   programs.home-manager.enable = true;
