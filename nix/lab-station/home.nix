@@ -111,7 +111,8 @@
     };
   
     shellAliases = {
-      ll = "ls -l";
+      ll = "eza -l --icons=auto";
+      l = "eza -la --icons=auto";
       update = "sudo nixos-rebuild switch --flake .";
     };
     history.size = 10000;
