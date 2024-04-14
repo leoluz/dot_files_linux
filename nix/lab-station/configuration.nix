@@ -26,17 +26,19 @@
 
   networking.firewall = {
     enable = true;
-    # trustedInterfaces = [ "wlp11s0" ];
-    # allowedUDPPorts = [
-    #   # Palworld server
-    #   27015 27016 25575 8211
-    # ];
+    allowedUDPPorts = [
+      # Palworld server
+      27015 8211
+    ];
     # allowedTCPPorts = [
     #   # Palworld server
     #   27015 27016 25575 8211
     # ];
+    # trustedInterfaces = [ "wlp11s0" ];
 };
 
+  # docker configs
+  virtualisation.docker.enable = true;
 
   # Set your time zone.
   time.timeZone = "America/New_York";
@@ -126,7 +128,7 @@
   users.users.leoluz = {
     isNormalUser = true;
     description = "Leo";
-    extraGroups = [ "networkmanager" "wheel" ];
+    extraGroups = [ "networkmanager" "wheel" "docker" ];
     packages = with pkgs; [
       firefox
       kate
@@ -138,6 +140,9 @@
       lutris
       protonup-qt
       steamPackages.steamcmd
+      qbittorrent
+      docker-compose
+      popsicle # flash image utility
     ];
   };
 
