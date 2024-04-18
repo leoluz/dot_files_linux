@@ -11,6 +11,7 @@
     ];
 
   # Bootloader.
+  boot.initrd.kernelModules = [ "amdgpu" ];
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
 
@@ -81,17 +82,14 @@
   services.xserver.enable = true;
 
   # Enable the KDE Plasma Desktop Environment.
-  services.xserver.displayManager.sddm.enable = true;
-  # services.xserver.desktopManager.plasma5.enable = true;
-  services.xserver.displayManager.defaultSession = "plasma";
+  services.displayManager.sddm.enable = true;
+  services.displayManager.defaultSession = "plasma";
   services.desktopManager.plasma6.enable = true;
   environment.plasma6.excludePackages = with pkgs.kdePackages; [
     plasma-browser-integration
     konsole
     oxygen
   ];
-
-  #services.xserver.displayManager.sddm.wayland.enable = true;
 
   nix.settings.experimental-features = [ "nix-command" "flakes" ];
 
