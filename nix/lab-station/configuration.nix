@@ -195,6 +195,14 @@
     magicOrExtension = ''\x7fELF....AI\x02'';
   };
 
+  # https://github.com/viperML/nh
+  programs.nh = {
+    enable = true;
+    clean.enable = true;
+    clean.extraArgs = "--keep-since 4d --keep 3";
+    flake = "/home/user/my-nixos-config";
+  };
+
   # List services that you want to enable:
 
   # Enable the OpenSSH daemon.
