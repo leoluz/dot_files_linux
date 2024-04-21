@@ -85,6 +85,7 @@
   services.displayManager.sddm.enable = true;
   services.displayManager.defaultSession = "plasma";
   services.desktopManager.plasma6.enable = true;
+  services.xserver.displayManager.sddm.wayland.enable = true;
   environment.plasma6.excludePackages = with pkgs.kdePackages; [
     plasma-browser-integration
     konsole
@@ -156,7 +157,7 @@
     python3
     nodejs_21
     cmake
-    linuxKernel.packages.linux_zen.xpadneo
+    # linuxKernel.packages.linux_zen.xpadneo
     # xwaylandvideobridge
   ];
 
