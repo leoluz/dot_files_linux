@@ -31,11 +31,6 @@
       # Palworld server
       27015 8211
     ];
-    # allowedTCPPorts = [
-    #   # Palworld server
-    #   27015 27016 25575 8211
-    # ];
-    # trustedInterfaces = [ "wlp11s0" ];
 };
 
   # docker configs
@@ -64,28 +59,20 @@
   # powers up the default Bluetooth controller on boot
   hardware.bluetooth.powerOnBoot = true;
 
-  # Video
-  #services.xserver.deviceSection = ''Option "TearFree" "true"''; # For amdgpu.
-  #services.picom = {
-  #  enable = true;
-  #  vSync = true;
-  #};
-  #hardware.opengl.extraPackages = [
-  #  pkgs.amdvlk
-  #];
-
-  #hardware.opengl.extraPackages32 = [
-  #  pkgs.driversi686Linux.amdvlk
-  #];
-
   # Enable the X11 windowing system.
   services.xserver.enable = true;
 
   # Enable the KDE Plasma Desktop Environment.
-  services.displayManager.sddm.enable = true;
-  services.displayManager.defaultSession = "plasma";
   services.desktopManager.plasma6.enable = true;
-  services.xserver.displayManager.sddm.wayland.enable = true;
+  services.displayManager = {
+      defaultSession = "plasma";
+      sddm = { 
+        enable = true;
+        wayland.enable = true;
+      };
+  };
+
+  # services.xserver.displayManager.sddm.wayland.enable = true;
   environment.plasma6.excludePackages = with pkgs.kdePackages; [
     plasma-browser-integration
     konsole
