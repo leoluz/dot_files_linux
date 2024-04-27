@@ -142,8 +142,8 @@
     git
     go
     python3
-    nodejs_21
     cmake
+    nodejs_22
     # linuxKernel.packages.linux_zen.xpadneo
     # xwaylandvideobridge
   ];
