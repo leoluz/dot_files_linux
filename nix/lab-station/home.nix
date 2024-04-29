@@ -104,6 +104,10 @@
       enable = true;
     };
     syntaxHighlighting.enable = true;
+    localVariables = {
+      GOBIN = "$HOME/go/bin";
+      PATH = "$GOBIN:$PATH";
+    };
 
     oh-my-zsh = {
       enable = true;
