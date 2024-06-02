@@ -69,6 +69,7 @@
     strace # system call monitoring
     ltrace # library call monitoring
     lsof # list open files
+    iperf # measure IP bandwidth
 
     # system tools
     sysstat
