@@ -62,6 +62,9 @@
   # Enable the X11 windowing system.
   services.xserver.enable = true;
 
+  # https://nixos.wiki/wiki/Tailscale
+  services.tailscale.enable = true;
+
   # Enable the KDE Plasma Desktop Environment.
   services.desktopManager.plasma6.enable = true;
   services.displayManager = {
