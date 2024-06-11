@@ -147,6 +147,7 @@
     python3
     cmake
     nodejs_22
+    vesktop
     # linuxKernel.packages.linux_zen.xpadneo
     # xwaylandvideobridge
   ];
