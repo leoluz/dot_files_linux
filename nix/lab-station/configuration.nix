@@ -65,6 +65,9 @@
   # https://nixos.wiki/wiki/Tailscale
   services.tailscale.enable = true;
 
+  # https://flatpak.org/setup/NixOS
+  services.flatpak.enable = true;
+
   # Enable the KDE Plasma Desktop Environment.
   services.desktopManager.plasma6.enable = true;
   services.displayManager = {
@@ -94,7 +97,6 @@
   services.printing.enable = true;
 
   # Enable sound with pipewire.
-  sound.enable = true;
   hardware.pulseaudio.enable = false;
   security.rtkit.enable = true;
   services.pipewire = {
