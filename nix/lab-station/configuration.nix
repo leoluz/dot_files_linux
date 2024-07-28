@@ -134,6 +134,7 @@
       qbittorrent
       docker-compose
       popsicle # flash image utility
+      delve
     ];
   };
 
