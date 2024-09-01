@@ -115,6 +115,15 @@
   # Enable touchpad support (enabled default in most desktopManager).
   # services.xserver.libinput.enable = true;
 
+  # Enable Sunshine service
+  # To manually start the service run: systemctl --user start sunshine
+  services.sunshine = {
+      enable = true;
+      autoStart = false;
+      capSysAdmin = true;
+      openFirewall = true;
+  };
+
   # Define a user account. Don't forget to set a password with ‘passwd’.
   users.users.leoluz = {
     isNormalUser = true;
