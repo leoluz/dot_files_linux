@@ -63,7 +63,7 @@
   services.xserver.enable = true;
 
   # https://nixos.wiki/wiki/Tailscale
-  services.tailscale.enable = true;
+  services.tailscale.enable = false;
 
   # https://flatpak.org/setup/NixOS
   services.flatpak.enable = true;
@@ -122,6 +122,34 @@
       autoStart = false;
       capSysAdmin = true;
       openFirewall = true;
+      settings = {
+        output_name = 1;
+      };
+      applications = {
+        env = {
+          PATH = "$(PATH):$(HOME)/.local/bin";
+        };
+        apps = [
+          {
+            name = "Steam";
+            output = "sunshine-steam.log";
+            detached = ["${pkgs.util-linux}/bin/setsid ${pkgs.steam}/bin/steam steam://open/bigpicture"];
+            image-path = "steam.png";
+          }
+          {
+            name = "Palworld";
+            output = "sunshine-palworld.log";
+            detached = ["${pkgs.util-linux}/bin/setsid ${pkgs.steam}/bin/steam steam://rungameid/1623730"];
+            image-path = "/home/leoluz/.config/sunshine/covers/igdb_151665.png";
+          }
+          {
+            name = "Steam Flatpak";
+            output = "sunshine-steam-flatpak.log";
+            cmd = "${pkgs.flatpak}/bin/flatpak run com.valvesoftware.Steam steam://open/bigpicture";
+            image-path = "steam.png";
+          }
+        ];
+      };
   };
 
   # Define a user account. Don't forget to set a password with ‘passwd’.
@@ -176,6 +204,11 @@
     enable = true;
     remotePlay.openFirewall = true; # Open ports in the firewall for Steam Remote Play
     dedicatedServer.openFirewall = true; # Open ports in the firewall for Source Dedicated Server
+  };
+
+  programs.gamescope = {
+    enable = true;
+    capSysNice = true;
   };
 
   programs._1password.enable = true;
