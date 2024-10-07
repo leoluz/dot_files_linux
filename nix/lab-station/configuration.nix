@@ -31,7 +31,7 @@
       # Palworld server
       27015 8211
     ];
-};
+  };
 
   # docker configs
   virtualisation.docker.enable = true;
@@ -165,13 +165,13 @@
       _1password
       vrrtest
       discord
-      lutris
       protonup-qt
       steamPackages.steamcmd
       qbittorrent
       docker-compose
       popsicle # flash image utility
       delve
+      sabnzbd
     ];
   };
 
