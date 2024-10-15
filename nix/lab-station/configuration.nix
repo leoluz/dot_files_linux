@@ -169,9 +169,9 @@
       steamPackages.steamcmd
       qbittorrent
       docker-compose
-      popsicle # flash image utility
       delve
-      sabnzbd
+      popsicle # flash image utility
+      sabnzbd # usenet downloader
     ];
   };
 
@@ -224,13 +224,9 @@
 
   # Configure AppImage to be invoked directly
   # https://nixos.wiki/wiki/Appimage
-  boot.binfmt.registrations.appimage = {
-    wrapInterpreterInShell = false;
-    interpreter = "${pkgs.appimage-run}/bin/appimage-run";
-    recognitionType = "magic";
-    offset = 0;
-    mask = ''\xff\xff\xff\xff\x00\x00\x00\x00\xff\xff\xff'';
-    magicOrExtension = ''\x7fELF....AI\x02'';
+  programs.appimage = {
+      enable = true;
+      binfmt = true;
   };
 
   # https://github.com/viperML/nh
