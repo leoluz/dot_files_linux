@@ -59,6 +59,9 @@
   # powers up the default Bluetooth controller on boot
   hardware.bluetooth.powerOnBoot = true;
 
+  hardware.graphics.enable = true;
+  hardware.graphics.enable32Bit = true;
+
   # Enable the X11 windowing system.
   services.xserver.enable = true;
 
@@ -189,6 +192,7 @@
     cmake
     nodejs_22
     vesktop
+    mangohud
     # linuxKernel.packages.linux_zen.xpadneo
     # xwaylandvideobridge
   ];
@@ -204,6 +208,7 @@
     enable = true;
     remotePlay.openFirewall = true; # Open ports in the firewall for Steam Remote Play
     dedicatedServer.openFirewall = true; # Open ports in the firewall for Source Dedicated Server
+    gamescopeSession.enable = true;
   };
 
   programs.gamescope = {
