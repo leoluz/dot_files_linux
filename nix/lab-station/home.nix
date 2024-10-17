@@ -55,6 +55,7 @@
     tree
 
     # nix related
+    nvd # nixos diff viewer
     #
     # it provides the command `nom` works just like `nix`
     # with more details log output
