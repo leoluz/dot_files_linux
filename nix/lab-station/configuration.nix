@@ -254,5 +254,5 @@
   ];
 
   boot.kernelPackages = pkgs.linuxPackages_latest;
-  # boot.kernelPackages = pkgs.linuxKernel.packages.linux_6_8;
+  # boot.kernelPackages = pkgs.linuxKernel.packages.linux_6_10;
 }
