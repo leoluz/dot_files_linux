@@ -129,7 +129,7 @@
 
   programs.kitty = {
     enable = true;
-    theme = "One Dark";
+    themeFile = "OneDark";
     shellIntegration = {
       enableZshIntegration = true;
     };
