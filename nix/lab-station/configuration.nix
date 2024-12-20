@@ -59,6 +59,8 @@
   # powers up the default Bluetooth controller on boot
   hardware.bluetooth.powerOnBoot = true;
 
+  hardware.enableAllFirmware = true;
+
   hardware.graphics.enable = true;
   hardware.graphics.enable32Bit = true;
 
@@ -81,7 +83,6 @@
       };
   };
 
-  # services.xserver.displayManager.sddm.wayland.enable = true;
   environment.plasma6.excludePackages = with pkgs.kdePackages; [
     plasma-browser-integration
     konsole
