@@ -194,6 +194,7 @@
     nodejs_22
     vesktop
     mangohud
+    quickemu
     # linuxKernel.packages.linux_zen.xpadneo
     # xwaylandvideobridge
   ];
