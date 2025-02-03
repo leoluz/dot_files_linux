@@ -36,6 +36,10 @@
   # docker configs
   virtualisation.docker.enable = true;
 
+  # enable usb redirection on quickemu
+  #https://github.com/quickemu-project/quickemu/wiki/05-Advanced-quickemu-configuration#usb-redirection
+  virtualisation.spiceUSBRedirection.enable = true;
+
   # Set your time zone.
   time.timeZone = "America/New_York";
 
