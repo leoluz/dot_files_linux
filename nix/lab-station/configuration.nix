@@ -190,6 +190,7 @@
   # $ nix search wget
   environment.systemPackages = with pkgs; [
     kdePackages.partitionmanager
+    gcc
     neovim
     git
     go
