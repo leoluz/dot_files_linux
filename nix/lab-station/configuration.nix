@@ -196,6 +196,7 @@
     go
     python3
     cmake
+    gnumake
     nodejs_22
     vesktop
     mangohud
