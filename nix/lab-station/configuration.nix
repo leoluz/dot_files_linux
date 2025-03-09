@@ -167,7 +167,7 @@
     extraGroups = [ "networkmanager" "wheel" "docker" ];
     packages = with pkgs; [
       firefox
-      kate
+      # kate
       google-chrome
       _1password-gui
       _1password
@@ -180,6 +180,7 @@
       delve
       popsicle # flash image utility
       sabnzbd # usenet downloader
+      spotify
     ];
   };
 
@@ -190,6 +191,7 @@
   # $ nix search wget
   environment.systemPackages = with pkgs; [
     kdePackages.partitionmanager
+    kdePackages.kate
     gcc
     neovim
     git
