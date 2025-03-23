@@ -167,7 +167,6 @@
     extraGroups = [ "networkmanager" "wheel" "docker" ];
     packages = with pkgs; [
       firefox
-      # kate
       google-chrome
       _1password-gui
       _1password
@@ -203,6 +202,7 @@
     vesktop
     mangohud
     quickemu
+    hplip # HP printer drivers
     # linuxKernel.packages.linux_zen.xpadneo
     # xwaylandvideobridge
   ];
