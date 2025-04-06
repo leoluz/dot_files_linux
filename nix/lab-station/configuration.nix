@@ -68,6 +68,12 @@
   hardware.graphics.enable = true;
   hardware.graphics.enable32Bit = true;
 
+  # enables scanner HP
+  hardware.sane = {
+    enable = true;
+    extraBackends = [ pkgs.sane-airscan ];
+  };
+
   # Enable the X11 windowing system.
   services.xserver.enable = true;
 
@@ -103,6 +109,16 @@
 
   # Enable CUPS to print documents.
   services.printing.enable = true;
+  services.avahi = {
+    enable = true;
+    nssmdns4 = true;
+    openFirewall = true;
+    publish = {
+      enable = true;
+      addresses = true;
+      userServices = true;
+    };
+  };
 
   # Enable sound with pipewire.
   hardware.pulseaudio.enable = false;
@@ -203,6 +219,7 @@
     mangohud
     quickemu
     hplip # HP printer drivers
+    simple-scan
     # linuxKernel.packages.linux_zen.xpadneo
     # xwaylandvideobridge
   ];

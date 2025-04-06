@@ -113,7 +113,7 @@
 
     oh-my-zsh = {
       enable = true;
-      plugins = [ "git" ];
+      plugins = [ "git" "fzf" ];
       theme = "refined";
       # theme = "kolo";
     };
