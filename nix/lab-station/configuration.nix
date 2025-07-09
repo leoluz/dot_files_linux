@@ -196,6 +196,7 @@
       popsicle # flash image utility
       sabnzbd # usenet downloader
       spotify
+      retroarch-full
     ];
   };
 
