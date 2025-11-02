@@ -4,6 +4,8 @@
   home.username = "leoluz";
   home.homeDirectory = "/home/leoluz";
 
+  # wayland.windowManager.hyprland.enable = true;
+
   # link the configuration file in current directory to the specified location in home directory
   # home.file.".config/i3/wallpaper.jpg".source = ./wallpaper.jpg;
 

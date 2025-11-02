@@ -121,7 +121,7 @@
   };
 
   # Enable sound with pipewire.
-  hardware.pulseaudio.enable = false;
+  services.pulseaudio.enable = false;
   security.rtkit.enable = true;
   services.pipewire = {
     enable = true;
@@ -185,11 +185,11 @@
       firefox
       google-chrome
       _1password-gui
-      _1password
+      _1password-cli
       vrrtest
       discord
       protonup-qt
-      steamPackages.steamcmd
+      steamcmd
       qbittorrent
       docker-compose
       delve
@@ -197,6 +197,7 @@
       sabnzbd # usenet downloader
       spotify
       retroarch-full
+      vlc
     ];
   };
 
@@ -224,6 +225,11 @@
     # linuxKernel.packages.linux_zen.xpadneo
     # xwaylandvideobridge
   ];
+
+  # programs.hyprland = {
+  #   enable = true;
+  #   xwayland.enable = true;
+  # };
 
   # Some programs need SUID wrappers, can be configured further or are
   # started in user sessions.
@@ -284,5 +290,5 @@
   ];
 
   boot.kernelPackages = pkgs.linuxPackages_latest;
-  # boot.kernelPackages = pkgs.linuxKernel.packages.linux_6_11;
+  # boot.kernelPackages = pkgs.linuxKernel.packages.linux_6_16;
 }
