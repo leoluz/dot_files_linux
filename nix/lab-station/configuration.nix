@@ -14,6 +14,9 @@
   boot.initrd.kernelModules = [ "amdgpu" ];
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
+  boot.kernelModules = [ "amdgpu" ];
+  boot.kernelPackages = pkgs.linuxPackages_latest;
+  # boot.kernelPackages = pkgs.linuxKernel.packages.linux_6_16;
 
   networking.hostName = "lab-station"; # Define your hostname.
   # networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
@@ -65,8 +68,10 @@
 
   hardware.enableAllFirmware = true;
 
-  hardware.graphics.enable = true;
-  hardware.graphics.enable32Bit = true;
+  hardware.graphics = {
+      enable = true;
+      enable32Bit = true;
+  };
 
   # enables scanner HP
   hardware.sane = {
@@ -75,7 +80,7 @@
   };
 
   # Enable the X11 windowing system.
-  services.xserver.enable = true;
+  # services.xserver.enable = true;
 
   # https://nixos.wiki/wiki/Tailscale
   services.tailscale.enable = false;
@@ -87,6 +92,9 @@
   services.desktopManager.plasma6.enable = true;
   services.displayManager = {
       defaultSession = "plasma";
+      # plasma-login-manager = {
+      #     enable = true;
+      # };
       sddm = { 
         enable = true;
         wayland.enable = true;
@@ -102,10 +110,10 @@
   nix.settings.experimental-features = [ "nix-command" "flakes" ];
 
   # Configure keymap in X11
-  services.xserver.xkb = {
-    layout = "us";
-    variant = "";
-  };
+  # services.xserver.xkb = {
+  #   layout = "us";
+  #   variant = "";
+  # };
 
   # Enable CUPS to print documents.
   services.printing.enable = true;
@@ -289,6 +297,4 @@
     nerd-fonts.dejavu-sans-mono
   ];
 
-  boot.kernelPackages = pkgs.linuxPackages_latest;
-  # boot.kernelPackages = pkgs.linuxKernel.packages.linux_6_16;
 }
