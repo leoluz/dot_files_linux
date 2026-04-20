@@ -34,7 +34,6 @@
 
     # development
     gh
-    claude-code
 
     # wayland
     wl-clipboard

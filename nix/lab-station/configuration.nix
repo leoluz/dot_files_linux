@@ -36,11 +36,12 @@
     ];
   };
 
-  # docker configs
   virtualisation.docker.enable = true;
 
-  # enable usb redirection on quickemu
-  #https://github.com/quickemu-project/quickemu/wiki/05-Advanced-quickemu-configuration#usb-redirection
+  # QuickEMU USB Redirection:
+  # Enabled to forward USB devices directly to virtual machines.
+  # Useful for scenarios like virtualized development or testing.
+  # More details: https://github.com/quickemu-project/quickemu/wiki/05-Advanced-quickemu-configuration#usb-redirection
   virtualisation.spiceUSBRedirection.enable = true;
 
   # Set your time zone.
@@ -152,14 +153,14 @@
   services.sunshine = {
       enable = true;
       autoStart = false;
-      capSysAdmin = true;
-      openFirewall = true;
+      capSysAdmin = true; # Allows low-level system privileges needed for Sunshine's features.
+      openFirewall = true; # Opens required ports in the system's firewall automatically.
       settings = {
-        output_name = 1;
+        output_name = 1; # Placeholder for specific Sunshine stream-server configuration setting.
       };
       applications = {
         env = {
-          PATH = "$(PATH):$(HOME)/.local/bin";
+          PATH = "$(PATH):$(HOME)/.local/bin"; # Custom PATH addition for resolving executables.
         };
         apps = [
           {
@@ -230,8 +231,7 @@
     quickemu
     hplip # HP printer drivers
     simple-scan
-    # linuxKernel.packages.linux_zen.xpadneo
-    # xwaylandvideobridge
+    distrobox
   ];
 
   # programs.hyprland = {
