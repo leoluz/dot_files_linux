@@ -18,6 +18,16 @@
   # boot.kernelPackages = pkgs.linuxPackages_latest;
   boot.kernelPackages = pkgs.linuxKernel.packages.linux_6_19;
 
+  # AMD CPU power optimization
+  boot.kernelParams = [ 
+    "amd_pstate=enabled"
+    "intel_pstate=disable"
+    "idle=nomwait"
+  ];
+
+  # Enable suspend-to-RAM (if your system supports it)
+  powerManagement.enable = true;
+
   networking.hostName = "lab-station"; # Define your hostname.
   # networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
 
@@ -113,6 +123,7 @@
   ];
 
   nix.settings.experimental-features = [ "nix-command" "flakes" ];
+  nix.settings.auto-optimise-store = true;
 
   # Configure keymap in X11
   # services.xserver.xkb = {
@@ -194,30 +205,13 @@
     isNormalUser = true;
     description = "Leo";
     extraGroups = [ "networkmanager" "wheel" "docker" ];
-    packages = with pkgs; [
-      firefox
-      google-chrome
-      _1password-gui
-      _1password-cli
-      vrrtest
-      discord
-      protonup-qt
-      steamcmd
-      qbittorrent
-      docker-compose
-      delve
-      popsicle # flash image utility
-      sabnzbd # usenet downloader
-      spotify
-      retroarch-full
-      vlc
-    ];
+    packages = [];
   };
 
   # Allow unfree packages
   nixpkgs.config.allowUnfree = true;
 
-  # List packages installed in system profile. To search, run:
+  # List packages installed in system profile. To search, running:
   # $ nix search wget
   environment.systemPackages = with pkgs; [
     kdePackages.partitionmanager
@@ -230,12 +224,7 @@
     cmake
     gnumake
     nodejs_22
-    vesktop
-    mangohud
-    quickemu
     hplip # HP printer drivers
-    simple-scan
-    distrobox
   ];
 
   # programs.hyprland = {
