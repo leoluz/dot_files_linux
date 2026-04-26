@@ -66,7 +66,6 @@
     protonup-qt
     steamcmd
     qbittorrent
-    docker-compose
     delve
     popsicle
     sabnzbd
@@ -75,9 +74,6 @@
     vlc
     vesktop
     mangohud
-    quickemu
-    simple-scan
-    distrobox
   ];
 
   # This value determines the home Manager release that your

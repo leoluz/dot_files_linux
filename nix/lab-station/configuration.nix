@@ -21,9 +21,17 @@
   # AMD CPU power optimization
   boot.kernelParams = [ 
     "amd_pstate=enabled"
-    "intel_pstate=disable"
     "idle=nomwait"
   ];
+
+#### 2. Disable PCIe ASPM (If step 1 fails)
+# 
+#  If the glitches persist, it might be the PCIe Active State Power Management (ASPM) causing the
+#  discrete GPU to "lose" its connection during low-power transitions. You can instruct the amdgpu
+#  driver to ignore these power management requests.
+#  Try adding this to boot.kernelParams:
+#        "amdgpu.aspm=off"
+
 
   # Enable suspend-to-RAM (if your system supports it)
   powerManagement.enable = true;
@@ -225,6 +233,11 @@
     gnumake
     nodejs_22
     hplip # HP printer drivers
+    docker-compose
+    simple-scan
+    quickemu
+    distrobox
+    radeontop
   ];
 
   # programs.hyprland = {
