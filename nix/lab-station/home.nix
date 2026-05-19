@@ -63,16 +63,22 @@
     _1password-cli
     vrrtest
     discord
-    protonup-qt
-    steamcmd
     qbittorrent
     delve
     popsicle
     sabnzbd
     spotify
-    retroarch-full
     vlc
     vesktop
+    bc # basic calculator
+
+    # AI
+    lmstudio
+
+    # Gaming
+    retroarch-full
+    steamcmd
+    protonup-qt
     mangohud
   ];
 
@@ -160,6 +166,11 @@
   programs.fzf = {
     enable = true;
     enableZshIntegration = true;
+  };
+
+  programs.wezterm = {
+    enable = true;
+    extraConfig = builtins.readFile ./wezterm.lua;
   };
 
   # Let home Manager install and manage itself.

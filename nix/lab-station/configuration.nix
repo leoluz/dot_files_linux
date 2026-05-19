@@ -15,22 +15,14 @@
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
   boot.kernelModules = [ "amdgpu" ];
-  # boot.kernelPackages = pkgs.linuxPackages_latest;
-  boot.kernelPackages = pkgs.linuxKernel.packages.linux_6_19;
+  boot.kernelPackages = pkgs.linuxPackages_latest;
+  #boot.kernelPackages = pkgs.linuxKernel.packages.linux_6_19;
 
   # AMD CPU power optimization
-  boot.kernelParams = [ 
+  boot.kernelParams = [
     "amd_pstate=enabled"
     "idle=nomwait"
   ];
-
-#### 2. Disable PCIe ASPM (If step 1 fails)
-# 
-#  If the glitches persist, it might be the PCIe Active State Power Management (ASPM) causing the
-#  discrete GPU to "lose" its connection during low-power transitions. You can instruct the amdgpu
-#  driver to ignore these power management requests.
-#  Try adding this to boot.kernelParams:
-#        "amdgpu.aspm=off"
 
 
   # Enable suspend-to-RAM (if your system supports it)
@@ -212,7 +204,7 @@
   users.users.leoluz = {
     isNormalUser = true;
     description = "Leo";
-    extraGroups = [ "networkmanager" "wheel" "docker" ];
+    extraGroups = [ "networkmanager" "wheel" "docker" "video" "render" ];
     packages = [];
   };
 
@@ -237,7 +229,7 @@
     simple-scan
     quickemu
     distrobox
-    radeontop
+    amdgpu_top
   ];
 
   # programs.hyprland = {
