@@ -15,8 +15,9 @@
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
   boot.kernelModules = [ "amdgpu" ];
-  boot.kernelPackages = pkgs.linuxPackages_latest;
-  #boot.kernelPackages = pkgs.linuxKernel.packages.linux_6_19;
+  boot.kernelPackages = pkgs.linuxPackages_6_6;
+  #boot.kernelPackages = pkgs.linuxPackages_latest;
+  #boot.kernelPackages = pkgs.linuxKernel.packages.linux_7_0;
 
   # AMD CPU power optimization
   boot.kernelParams = [

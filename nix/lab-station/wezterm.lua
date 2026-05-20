@@ -11,7 +11,7 @@ config.font = wezterm.font_with_fallback({
   -- { family = "Hack Nerd Font Mono", weight = "Regular", style = "Normal" },
   { family = "DejaVuSansM Nerd Font Mono", weight = "Regular", style = "Normal" },
 })
-config.font_size = 19.0
+config.font_size = 16.0
 config.line_height = 1.1
 -- font_features FiraCode-Regular +zero +onum from kitty (kept for parity if you swap to Fira)
 config.harfbuzz_features = { "zero", "onum" }
@@ -104,43 +104,43 @@ config.colors = {
 local act = wezterm.action
 config.keys = {
   -- Font size: cmd+= / cmd+- / cmd+0
-  { key = "=",          mods = "CTRL",       action = act.IncreaseFontSize },
-  { key = "+",          mods = "CTRL|SHIFT", action = act.IncreaseFontSize },
-  { key = "-",          mods = "CTRL",       action = act.DecreaseFontSize },
-  { key = "0",          mods = "CTRL",       action = act.ResetFontSize },
+  { key = "=",          mods = "ALT",       action = act.IncreaseFontSize },
+  { key = "+",          mods = "ALT|SHIFT", action = act.IncreaseFontSize },
+  { key = "-",          mods = "ALT",       action = act.DecreaseFontSize },
+  { key = "0",          mods = "ALT",       action = act.ResetFontSize },
 
   -- New pane / window with current cwd: cmd+s
-  { key = "s",          mods = "CTRL",       action = act.SplitVertical({ domain = "CurrentPaneDomain" }) },
-  { key = "s",          mods = "CTRL|SHIFT", action = act.SplitHorizontal({ domain = "CurrentPaneDomain" }) },
+  { key = "s",          mods = "ALT",       action = act.SplitVertical({ domain = "CurrentPaneDomain" }) },
+  { key = "s",          mods = "ALT|SHIFT", action = act.SplitHorizontal({ domain = "CurrentPaneDomain" }) },
 
   -- Cycle to next pane: cmd+]
-  { key = "]",          mods = "CTRL",       action = act.ActivatePaneDirection("Next") },
-  { key = "[",          mods = "CTRL",       action = act.ActivatePaneDirection("Prev") },
+  { key = "]",          mods = "ALT",       action = act.ActivatePaneDirection("Next") },
+  { key = "[",          mods = "ALT",       action = act.ActivatePaneDirection("Prev") },
 
   -- Go to tab N: cmd+1..5
-  { key = "1",          mods = "CTRL",       action = act.ActivateTab(0) },
-  { key = "2",          mods = "CTRL",       action = act.ActivateTab(1) },
-  { key = "3",          mods = "CTRL",       action = act.ActivateTab(2) },
-  { key = "4",          mods = "CTRL",       action = act.ActivateTab(3) },
-  { key = "5",          mods = "CTRL",       action = act.ActivateTab(4) },
+  { key = "1",          mods = "ALT",       action = act.ActivateTab(0) },
+  { key = "2",          mods = "ALT",       action = act.ActivateTab(1) },
+  { key = "3",          mods = "ALT",       action = act.ActivateTab(2) },
+  { key = "4",          mods = "ALT",       action = act.ActivateTab(3) },
+  { key = "5",          mods = "ALT",       action = act.ActivateTab(4) },
 
   -- Word navigation: alt+left/right send ESC b / ESC f
   { key = "LeftArrow",  mods = "OPT",       action = act.SendString("\x1bb") },
   { key = "RightArrow", mods = "OPT",       action = act.SendString("\x1bf") },
 
   -- Zoom toggle current pane (kitty kitty_mod+z)
-  { key = "z",          mods = "CTRL",       action = act.TogglePaneZoomState },
+  { key = "z",          mods = "ALT",       action = act.TogglePaneZoomState },
 
   -- Scrollback search / pipe to less (rough equivalents of kitty_mod+b)
-  { key = "b",          mods = "CTRL",       action = act.ActivateCopyMode },
+  { key = "b",          mods = "ALT",       action = act.ActivateCopyMode },
 
   -- Quick selection (kitty_mod+f hints word) → wezterm's quick-select
-  { key = "f",          mods = "CTRL",       action = act.QuickSelect },
+  { key = "f",          mods = "ALT",       action = act.QuickSelect },
 
   -- Rename current tab (kitty's shift+cmd+i / kitty_mod+alt+t)
   {
     key = "i",
-    mods = "CTRL|SHIFT",
+    mods = "ALT|SHIFT",
     action = act.PromptInputLine({
       description = "Enter new tab title",
       action = wezterm.action_callback(function(window, _, line)
@@ -152,9 +152,9 @@ config.keys = {
   },
 
   -- Standard macOS shortcuts (kept explicit for clarity)
-  { key = "t", mods = "CTRL", action = act.SpawnTab("CurrentPaneDomain") },
-  { key = "w", mods = "CTRL", action = act.CloseCurrentTab({ confirm = true }) },
-  { key = "n", mods = "CTRL", action = act.SpawnWindow },
+  { key = "t", mods = "ALT", action = act.SpawnTab("CurrentPaneDomain") },
+  { key = "w", mods = "ALT", action = act.CloseCurrentTab({ confirm = true }) },
+  { key = "n", mods = "ALT", action = act.SpawnWindow },
   { key = "c", mods = "CTRL", action = act.CopyTo("Clipboard") },
   { key = "v", mods = "CTRL", action = act.PasteFrom("Clipboard") },
 }

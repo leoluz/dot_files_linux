@@ -76,7 +76,7 @@
     lmstudio
 
     # Gaming
-    retroarch-full
+    #retroarch-full
     steamcmd
     protonup-qt
     mangohud
