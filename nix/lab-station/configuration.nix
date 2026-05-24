@@ -16,8 +16,8 @@
   boot.loader.efi.canTouchEfiVariables = true;
   boot.kernelModules = [ "amdgpu" ];
   #boot.kernelPackages = pkgs.linuxPackages_6_6;
-  boot.kernelPackages = pkgs.linuxPackages_6_18;
-  #boot.kernelPackages = pkgs.linuxPackages_latest;
+  #boot.kernelPackages = pkgs.linuxPackages_6_18; #Broken bluetooth
+  boot.kernelPackages = pkgs.linuxPackages_latest;
   #boot.kernelPackages = pkgs.linuxKernel.packages.linux_7_0;
 
   # AMD CPU power optimization
