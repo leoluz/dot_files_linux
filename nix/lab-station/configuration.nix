@@ -255,7 +255,7 @@
 
   programs.gamescope = {
     enable = true;
-    capSysNice = true;
+    capSysNice = false; 
   };
 
   programs._1password.enable = true;
