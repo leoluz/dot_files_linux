@@ -72,6 +72,9 @@
     vesktop
     bc # basic calculator
 
+    #design
+    inkscape
+
     # AI
     lmstudio
 
