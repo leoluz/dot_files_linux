@@ -74,6 +74,7 @@
 
     #design
     inkscape
+    gimp
 
     # AI
     lmstudio
