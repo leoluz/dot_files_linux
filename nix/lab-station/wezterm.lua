@@ -155,8 +155,8 @@ config.keys = {
   { key = "t", mods = "ALT", action = act.SpawnTab("CurrentPaneDomain") },
   { key = "w", mods = "ALT", action = act.CloseCurrentTab({ confirm = true }) },
   { key = "n", mods = "ALT", action = act.SpawnWindow },
-  { key = "c", mods = "CTRL", action = act.CopyTo("Clipboard") },
-  { key = "v", mods = "CTRL", action = act.PasteFrom("Clipboard") },
+  { key = "c", mods = "CTRL|SHIFT", action = act.CopyTo("Clipboard") },
+  { key = "v", mods = "CTRL|SHIFT", action = act.PasteFrom("Clipboard") },
 }
 
 return config
