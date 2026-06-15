@@ -218,6 +218,7 @@
   environment.systemPackages = with pkgs; [
     kdePackages.partitionmanager
     kdePackages.kate
+    kdePackages.kcharselect
     gcc
     neovim
     git
@@ -296,7 +297,6 @@
     nerd-fonts.droid-sans-mono
     nerd-fonts.dejavu-sans-mono
     nerd-fonts.symbols-only
-    typstPackages.nerd-icons
   ];
 
 }
