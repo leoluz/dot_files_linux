@@ -71,6 +71,7 @@
     vlc
     vesktop
     bc # basic calculator
+    zoom-us
 
     #design
     inkscape

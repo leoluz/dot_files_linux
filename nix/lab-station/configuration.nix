@@ -202,8 +202,6 @@
       };
   };
 
-  services.power-profiles-daemon.enable = false;
-
   # Define a user account. Don't forget to set a password with ‘passwd’.
   users.users.leoluz = {
     isNormalUser = true;
