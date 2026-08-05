@@ -9,6 +9,7 @@
     # development
     gh
     nixd # Nix Language Server for LSP support
+    tree-sitter
 
     # wayland
     wl-clipboard
