@@ -28,29 +28,8 @@
       "idle=nomwait"
       "usbcore.autosuspend=-1"
       "btusb.enable_autosuspend=0"
-
-      # --------------------------------------------------------------------------
-      # AMD GPU (Navi 31 / 7900 XTX) - Workaround for Post-Wake Display Glitches
-      # --------------------------------------------------------------------------
-      # BUG: Memory underflow / DCN power-gating bug causing screen artifacts/flicker
-      #      when MCLK idles at intermediate DPM level (772MHz) after sleep/resume.
-      #
-      # UPSTREAM TRACKER:
-      #   https://gitlab.freedesktop.org/drm/amd/-/issues
-      #   (Search: "Navi31 DCN watermark", "7900 XTX flicker wake", or "DCN32 underflow")
-      #
-      # REMOVAL TEST PROCEDURE (Run after bumping kernel versions):
-      #   1. Comment out "amdgpu.dcdebugmask=0x10" below.
-      #   2. Rebuild and switch (`nh os switch` / `nixos-rebuild switch --flake .`).
-      #   3. Suspend system -> Wake from sleep.
-      #   4. Check MCLK: `cat /sys/class/drm/card1/device/pp_dpm_mclk`
-      #   5. If artifacts/flickering return at state 2 (772MHz), re-enable this parameter.
-      # --------------------------------------------------------------------------
-      # Disables DCN power-gating features that fail during wake transitions
-      "amdgpu.dcdebugmask=0x10"
     ];
   };
-
 
 
   # Enable suspend-to-RAM (if your system supports it)
@@ -242,6 +221,17 @@
         ];
       };
   };
+
+
+  # --------------------------------------------------------------------------
+  # AMD 7900 XTX - Fix Post-Wake Memory Underflow Glitches
+  # --------------------------------------------------------------------------
+  # Forces MCLK to state 3 (1249MHz) upon resume. 
+  # --------------------------------------------------------------------------
+  services.udev.extraRules = ''
+    # Apply whenever DRM state changes (Display On / DPMS wake / Hotplug / Resume)
+    ACTION=="change", SUBSYSTEM=="drm", KERNEL=="card1", ATTR{device/power_dpm_force_performance_level}="manual", ATTR{device/pp_dpm_mclk}="3"
+  '';
 
   # Define a user account. Don't forget to set a password with ‘passwd’.
   users.users.leoluz = {
