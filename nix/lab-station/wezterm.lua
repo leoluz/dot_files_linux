@@ -19,7 +19,7 @@ config.harfbuzz_features = { "zero", "onum" }
 ------------------------------------------------------------
 -- Window / appearance
 ------------------------------------------------------------
-config.window_decorations = "RESIZE" -- hide titlebar, keep resize
+config.window_decorations = "NONE" -- hide titlebar, keep resize
 config.window_background_opacity = 1.0
 config.macos_window_background_blur = 0
 config.window_close_confirmation = "AlwaysPrompt" -- kitty's confirm_os_window_close -1

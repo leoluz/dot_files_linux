@@ -10,21 +10,47 @@
       ./hardware-configuration.nix
     ];
 
-  # Bootloader.
-  boot.initrd.kernelModules = [ "amdgpu" ];
-  boot.loader.systemd-boot.enable = true;
-  boot.loader.efi.canTouchEfiVariables = true;
-  boot.kernelModules = [ "amdgpu" ];
-  #boot.kernelPackages = pkgs.linuxPackages_6_6;
-  #boot.kernelPackages = pkgs.linuxPackages_6_18; #Broken bluetooth
-  boot.kernelPackages = pkgs.linuxPackages_latest;
-  #boot.kernelPackages = pkgs.linuxKernel.packages.linux_7_0;
+  # Bootloader
+  boot = {
+    initrd.kernelModules = [ "amdgpu" ];
+    loader.systemd-boot.enable = true;
+    loader.efi.canTouchEfiVariables = true;
+    kernelModules = [ "amdgpu" "i2c-dev" ];
 
-  # AMD CPU power optimization
-  boot.kernelParams = [
-    "amd_pstate=enabled"
-    "idle=nomwait"
-  ];
+    #kernelPackages = pkgs.linuxPackages_6_6;
+    #kernelPackages = pkgs.linuxPackages_6_18; #Broken bluetooth
+    kernelPackages = pkgs.linuxPackages_latest;
+    #kernelPackages = pkgs.linuxKernel.packages.linux_7_0;
+
+    # AMD CPU power optimization
+    kernelParams = [
+      "amd_pstate=enabled"
+      "idle=nomwait"
+      "usbcore.autosuspend=-1"
+      "btusb.enable_autosuspend=0"
+
+      # --------------------------------------------------------------------------
+      # AMD GPU (Navi 31 / 7900 XTX) - Workaround for Post-Wake Display Glitches
+      # --------------------------------------------------------------------------
+      # BUG: Memory underflow / DCN power-gating bug causing screen artifacts/flicker
+      #      when MCLK idles at intermediate DPM level (772MHz) after sleep/resume.
+      #
+      # UPSTREAM TRACKER:
+      #   https://gitlab.freedesktop.org/drm/amd/-/issues
+      #   (Search: "Navi31 DCN watermark", "7900 XTX flicker wake", or "DCN32 underflow")
+      #
+      # REMOVAL TEST PROCEDURE (Run after bumping kernel versions):
+      #   1. Comment out "amdgpu.dcdebugmask=0x10" below.
+      #   2. Rebuild and switch (`nh os switch` / `nixos-rebuild switch --flake .`).
+      #   3. Suspend system -> Wake from sleep.
+      #   4. Check MCLK: `cat /sys/class/drm/card1/device/pp_dpm_mclk`
+      #   5. If artifacts/flickering return at state 2 (772MHz), re-enable this parameter.
+      # --------------------------------------------------------------------------
+      # Disables DCN power-gating features that fail during wake transitions
+      "amdgpu.dcdebugmask=0x10"
+    ];
+  };
+
 
 
   # Enable suspend-to-RAM (if your system supports it)
@@ -91,6 +117,8 @@
     enable = true;
     extraBackends = [ pkgs.sane-airscan ];
   };
+
+  hardware.i2c.enable = true;
 
   # Enable the X11 windowing system.
   # services.xserver.enable = true;
@@ -165,6 +193,19 @@
   # Enable touchpad support (enabled default in most desktopManager).
   # services.xserver.libinput.enable = true;
 
+  services.openssh = {
+    enable = true;
+    ports = [ 22 ];
+    openFirewall = true; # Open port 22 in firewall automatically
+
+    settings = {
+      PasswordAuthentication = false;       # Secure: requires public/private keys
+      PermitRootLogin = "prohibit-password"; # Prevent root password brute forcing
+      X11Forwarding = false;                # Disable GUI forwarding for security
+    };
+  };
+
+
   # Enable Sunshine service
   # To manually start the service run: systemctl --user start sunshine
   services.sunshine = {
@@ -206,8 +247,11 @@
   users.users.leoluz = {
     isNormalUser = true;
     description = "Leo";
-    extraGroups = [ "networkmanager" "wheel" "docker" "video" "render" ];
+    extraGroups = [ "networkmanager" "wheel" "docker" "video" "render" "i2c" ];
     packages = [];
+    openssh.authorizedKeys.keys = [
+      "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIFQbqvUUzhDxeT+QJNEeHhuAoh+U8SKSDvY5ork/Qm1i dietpi-to-nixos"
+    ];
   };
 
   # Allow unfree packages
@@ -233,6 +277,7 @@
     quickemu
     distrobox
     amdgpu_top
+    ddcutil # cli for monitor control
   ];
 
   # programs.hyprland = {
