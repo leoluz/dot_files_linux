@@ -33,7 +33,17 @@
 
 
   # Enable suspend-to-RAM (if your system supports it)
-  powerManagement.enable = true;
+  powerManagement = {
+    enable = true;
+    # Turn off Bluetooth adapter before going to sleep -> forces keyboard to disconnect
+    powerDownCommands = ''
+      ${pkgs.bluez}/bin/bluetoothctl power off
+    '';
+    # Turn on Bluetooth adapter and resume cleanly when waking up
+    resumeCommands = ''
+      ${pkgs.bluez}/bin/bluetoothctl power on
+    '';
+  };
 
   networking.hostName = "lab-station"; # Define your hostname.
   # networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
@@ -79,10 +89,23 @@
     LC_TIME = "en_US.UTF-8";
   };
 
-  # enables support for Bluetooth
-  hardware.bluetooth.enable = true; 
-  # powers up the default Bluetooth controller on boot
-  hardware.bluetooth.powerOnBoot = true;
+  hardware.bluetooth = {
+    # enables support for Bluetooth
+    enable = true; 
+    # powers up the default Bluetooth controller on boot
+    powerOnBoot = true;
+    settings = {
+      General = {
+          #FastConnectable = true;
+          ReconnectAttempts = 7;
+          ReconnectIntervals = "1, 2, 4, 8, 16, 32, 64";
+          AutoEnable = true;
+      };
+      Policy = {
+          AutoEnable = true;
+      };
+    };
+  };
 
   hardware.enableAllFirmware = true;
 
@@ -227,7 +250,6 @@
   # AMD 7900 XTX - Fix Post-Wake Memory Underflow Glitches
   # --------------------------------------------------------------------------
   # Forces MCLK to state 3 (1249MHz) upon resume. 
-  # --------------------------------------------------------------------------
   services.udev.extraRules = ''
     # Apply whenever DRM state changes (Display On / DPMS wake / Hotplug / Resume)
     ACTION=="change", SUBSYSTEM=="drm", KERNEL=="card1", ATTR{device/power_dpm_force_performance_level}="manual", ATTR{device/pp_dpm_mclk}="3"
